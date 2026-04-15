@@ -871,27 +871,31 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(160deg, #12101f 0%, #1a1a2e 50%, #0f1923 100%);
 }
 
 .sab-status-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 16px;
-  background: var(--bg-card);
+  padding: 10px 20px;
+  background: rgba(22, 33, 62, 0.9);
   border-bottom: 1px solid var(--border);
-  min-height: 44px;
+  backdrop-filter: blur(8px);
+  min-height: 48px;
 }
 .sab-round {
   font-size: 12px;
   color: var(--text-muted);
+  margin-left: 8px;
 }
 .sab-role {
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.3px;
 }
-.sab-role-miner { color: var(--info); }
-.sab-role-saboteur { color: var(--danger); }
+.sab-role-miner { color: var(--info); text-shadow: 0 0 12px rgba(52,152,219,0.3); }
+.sab-role-saboteur { color: var(--danger); text-shadow: 0 0 12px rgba(231,76,60,0.3); }
 
 .sab-main {
   flex: 1;
@@ -900,83 +904,104 @@ body {
 }
 
 .sab-left-panel {
-  width: 260px;
+  width: 240px;
   min-width: 200px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 8px;
+  gap: 10px;
+  padding: 12px;
   overflow-y: auto;
   border-right: 1px solid var(--border);
+  background: rgba(22, 33, 62, 0.4);
 }
 
 .sab-board-area {
   flex: 1;
   overflow: auto;
-  padding: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 /* Board */
 .sab-board-container {
   display: flex;
   justify-content: center;
+  padding: 12px;
 }
 .sab-board {
   display: inline-flex;
   flex-direction: column;
+  gap: 2px;
+  background: rgba(0,0,0,0.15);
+  border-radius: 8px;
+  padding: 6px;
 }
 .sab-grid-row {
   display: flex;
+  gap: 2px;
 }
 .sab-grid-cell {
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   cursor: default;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
 }
 .sab-cell-filled {
-  border-color: rgba(200,168,78,0.2);
+  border-color: rgba(200,168,78,0.25);
+  box-shadow: inset 0 0 8px rgba(200,168,78,0.06);
 }
 .sab-cell-start {
   border-color: var(--info);
-  box-shadow: 0 0 6px rgba(52,152,219,0.3);
+  box-shadow: 0 0 10px rgba(52,152,219,0.35), inset 0 0 10px rgba(52,152,219,0.1);
 }
 .sab-cell-valid {
   border-color: var(--success);
-  background: rgba(46,204,113,0.1);
+  background: rgba(46,204,113,0.08);
   cursor: pointer;
+  animation: validPulse 2s ease-in-out infinite;
+}
+@keyframes validPulse {
+  0%, 100% { box-shadow: 0 0 4px rgba(46,204,113,0.15); }
+  50% { box-shadow: 0 0 12px rgba(46,204,113,0.3); }
 }
 .sab-cell-valid:hover {
   background: rgba(46,204,113,0.2);
+  box-shadow: 0 0 14px rgba(46,204,113,0.4);
 }
 .sab-cell-goal {
-  border-color: var(--warning);
+  border-color: rgba(243,156,18,0.5);
+  border-style: dashed;
 }
 .sab-valid-marker {
   color: var(--success);
-  font-size: 18px;
+  font-size: 22px;
   font-weight: bold;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 .sab-goal {
-  font-size: 20px;
+  font-size: 26px;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-surface);
+  background: rgba(15, 52, 96, 0.5);
   border-radius: 4px;
   color: var(--text-muted);
 }
 .sab-goal-gold {
-  background: rgba(255,215,0,0.15);
+  background: rgba(255,215,0,0.12);
   color: gold;
+  box-shadow: inset 0 0 12px rgba(255,215,0,0.1);
 }
 .sab-goal-stone {
-  background: rgba(139,69,19,0.15);
+  background: rgba(139,69,19,0.12);
   color: #8B4513;
 }
 
@@ -984,23 +1009,26 @@ body {
 .sab-players {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 .sab-player-slot {
   background: var(--bg-card);
   border: 2px solid var(--border);
   border-radius: var(--radius);
-  padding: 6px 10px;
+  padding: 8px 12px;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 .sab-player-slot.is-me {
   border-color: var(--primary);
+  background: rgba(233,69,96,0.05);
 }
 .sab-player-slot.is-active {
   border-color: var(--warning);
-  box-shadow: 0 0 6px rgba(243,156,18,0.3);
+  box-shadow: 0 0 10px rgba(243,156,18,0.25);
+  background: rgba(243,156,18,0.04);
 }
 .sab-player-slot.disconnected {
-  opacity: 0.5;
+  opacity: 0.45;
 }
 .sab-player-name {
   font-weight: 600;
@@ -1009,17 +1037,17 @@ body {
 .sab-player-info {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 11px;
   color: var(--text-muted);
-  margin-top: 2px;
+  margin-top: 3px;
 }
 .sab-broken-tools {
   display: flex;
-  gap: 2px;
+  gap: 3px;
 }
 .sab-broken-tool {
-  font-size: 12px;
+  font-size: 13px;
 }
 .sab-passed {
   color: var(--text-muted);
@@ -1031,7 +1059,7 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 12px;
+  padding: 14px;
 }
 .sab-action-info {
   text-align: center;
@@ -1039,12 +1067,14 @@ body {
   font-size: 13px;
 }
 .sab-action-info h3 {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: var(--text);
 }
 .sab-selected-actions {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   font-size: 13px;
 }
 .sab-selected-actions p {
@@ -1061,8 +1091,8 @@ body {
   font-size: 13px;
 }
 .sab-peek-result {
-  font-size: 32px;
-  padding: 16px;
+  font-size: 40px;
+  padding: 20px;
 }
 .sab-scores {
   margin: 12px 0;
@@ -1070,68 +1100,76 @@ body {
 .sab-score-row {
   display: flex;
   justify-content: space-between;
-  padding: 4px 8px;
+  padding: 6px 10px;
   font-size: 14px;
+  border-radius: 4px;
+}
+.sab-score-row:nth-child(1) {
+  background: rgba(255,215,0,0.1);
+  font-weight: 600;
 }
 
 /* Hand */
 .sab-hand {
-  background: var(--bg-card);
+  background: rgba(22, 33, 62, 0.95);
   border-top: 1px solid var(--border);
-  padding: 8px 16px;
+  padding: 10px 20px 12px;
+  backdrop-filter: blur(8px);
 }
 .sab-hand-label {
   font-size: 12px;
   color: var(--text-muted);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 .sab-hand-cards {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   overflow-x: auto;
   padding-bottom: 4px;
+  justify-content: center;
 }
 .sab-hand-wrapper {
   flex-shrink: 0;
-  transition: transform 0.15s;
+  transition: transform 0.2s ease;
 }
 .sab-hand-wrapper.clickable {
   cursor: pointer;
 }
 .sab-hand-wrapper.clickable:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
 }
 .sab-hand-wrapper.selected {
-  transform: translateY(-8px);
+  transform: translateY(-10px);
 }
 
 /* Saboteur Cards */
 .sab-card, .sab-card-small {
   border: 2px solid var(--border);
-  border-radius: 6px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background: var(--card-bg);
   overflow: hidden;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 .sab-card {
-  width: 68px;
-  height: 80px;
+  width: 80px;
+  height: 96px;
 }
 .sab-card-small {
   width: 44px;
   height: 52px;
 }
 .sab-card-path {
-  padding: 4px;
+  padding: 6px;
 }
 .sab-card-action {
-  gap: 2px;
+  gap: 4px;
 }
 .sab-card-icon {
-  font-size: 20px;
+  font-size: 24px;
 }
 .sab-card-small .sab-card-icon {
   font-size: 14px;
@@ -1148,7 +1186,7 @@ body {
 .sab-card-map { border-color: var(--info); }
 .sab-card-selected {
   border-color: var(--primary) !important;
-  box-shadow: 0 0 10px rgba(233,69,96,0.4);
+  box-shadow: 0 0 14px rgba(233,69,96,0.45);
 }
 .sab-path-svg {
   display: block;

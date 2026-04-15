@@ -21,7 +21,7 @@ export default function SaboteurBoardView({ board, goals, onCellClick, validPlac
     return { minX, maxX, minY, maxY };
   }, [board]);
 
-  const cellSize = 48;
+  const cellSize = 72;
   const boardMap = useMemo(() => {
     const m = new Map<string, BoardCell>();
     for (const cell of board) m.set(`${cell.x},${cell.y}`, cell);
@@ -98,7 +98,7 @@ function PathCellPreview({ cell, size }: { cell: BoardCell; size: number }) {
       const [ex, ey] = edgeMid[dir];
       lines.push(
         <line key={dir} x1={ex} y1={ey} x2={mid} y2={mid}
-          stroke="#c8a84e" strokeWidth={5} strokeLinecap="round" />
+          stroke="#c8a84e" strokeWidth={7} strokeLinecap="round" />
       );
     }
   }
@@ -111,7 +111,7 @@ function PathCellPreview({ cell, size }: { cell: BoardCell; size: number }) {
       const stubY = ey + (mid - ey) * 0.4;
       lines.push(
         <line key={`dead-${dir}`} x1={ex} y1={ey} x2={stubX} y2={stubY}
-          stroke="#8B4513" strokeWidth={5} strokeLinecap="round" />
+          stroke="#8B4513" strokeWidth={7} strokeLinecap="round" />
       );
     }
   }
@@ -121,7 +121,7 @@ function PathCellPreview({ cell, size }: { cell: BoardCell; size: number }) {
       <rect x={0} y={0} width={size} height={size} rx={2}
         fill={isDeadEnd ? '#2a1a0a' : '#1a1a0a'} />
       {lines}
-      <circle cx={mid} cy={mid} r={2.5}
+      <circle cx={mid} cy={mid} r={3.5}
         fill={connectedGroups.length > 0 ? '#c8a84e' : isDeadEnd ? '#8B4513' : 'transparent'} />
     </svg>
   );

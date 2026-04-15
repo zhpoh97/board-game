@@ -77,7 +77,7 @@ function PathPreview({ openings, connectedGroups, small }: {
   connectedGroups: Direction[][];
   small?: boolean;
 }) {
-  const size = small ? 36 : 56;
+  const size = small ? 36 : 64;
   const mid = size / 2;
   const edgeMid: Record<Direction, [number, number]> = {
     [Direction.TOP]: [mid, 0],
