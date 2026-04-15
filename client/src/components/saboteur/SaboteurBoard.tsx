@@ -1,5 +1,5 @@
 import { BoardCell, GoalCardPublic, Direction, START_POSITION, GOAL_POSITIONS } from '@cockroach-poker/shared';
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
 interface SaboteurBoardProps {
   board: BoardCell[];
@@ -21,7 +21,13 @@ export default function SaboteurBoardView({ board, goals, onCellClick, validPlac
     return { minX, maxX, minY, maxY };
   }, [board]);
 
-  const cellSize = 72;
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+  const cellSize = isMobile ? 52 : 72;
   const boardMap = useMemo(() => {
     const m = new Map<string, BoardCell>();
     for (const cell of board) m.set(`${cell.x},${cell.y}`, cell);

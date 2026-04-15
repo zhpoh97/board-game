@@ -16,6 +16,7 @@ import SaboteurRulesModal from '../components/saboteur/SaboteurRulesModal';
 export default function SaboteurGamePage() {
   const { t, lang, setLang } = useI18n();
   const [showRules, setShowRules] = useState(false);
+  const [mobileTab, setMobileTab] = useState<'board' | 'info'>('board');
   const sabState = useGameStore((s) => s.sabState);
   const selectedCardId = useGameStore((s) => s.selectedCardId);
   const setSelectedCardId = useGameStore((s) => s.setSelectedCardId);
@@ -64,18 +65,20 @@ export default function SaboteurGamePage() {
     }
   };
 
+  const currentPlayer = sabState.players.find(p => p.id === sabState.currentPlayerId);
+
   return (
-    <div className="page sab-game-page">
+    <div className={`page sab-game-page ${mobileTab === 'info' ? 'sab-show-info' : ''}`}>
       <div className="sab-status-bar">
         <div className="status-left">
           <span className="room-code">Room: {sabState.roomCode}</span>
           <span className="variant-badge">Saboteur</span>
-          <span className="sab-round">Round {sabState.round}/{sabState.totalRounds}</span>
+          <span className="sab-round">R{sabState.round}/{sabState.totalRounds}</span>
         </div>
         <div className="status-center">
           {sabState.myRole !== 'observer' && (
             <span className={`sab-role sab-role-${sabState.myRole}`}>
-              You are a {sabState.myRole === 'miner' ? 'Miner \u26CF\uFE0F' : 'Saboteur \u{1F608}'}
+              {sabState.myRole === 'miner' ? 'Miner \u26CF\uFE0F' : 'Saboteur \u{1F608}'}
             </span>
           )}
         </div>
@@ -93,6 +96,29 @@ export default function SaboteurGamePage() {
         {showRules && <SaboteurRulesModal onClose={() => setShowRules(false)} />}
       </div>
 
+      {/* Mobile turn indicator */}
+      <div className="sab-mobile-turn-bar">
+        {sabState.currentPlayerId === sabState.myId && sabState.phase === SaboteurPhase.PLAYING
+          ? 'Your turn!'
+          : `${currentPlayer?.nickname || '???'}'s turn`}
+      </div>
+
+      {/* Mobile tab switcher */}
+      <div className="sab-mobile-tabs">
+        <button
+          className={`sab-mobile-tab ${mobileTab === 'board' ? 'active' : ''}`}
+          onClick={() => setMobileTab('board')}
+        >
+          Board
+        </button>
+        <button
+          className={`sab-mobile-tab ${mobileTab === 'info' ? 'active' : ''}`}
+          onClick={() => setMobileTab('info')}
+        >
+          Players & Actions
+        </button>
+      </div>
+
       <div className="sab-main">
         <div className="sab-left-panel">
           <SaboteurPlayers />
@@ -106,6 +132,12 @@ export default function SaboteurGamePage() {
             validPlacements={validPlacements}
           />
         </div>
+      </div>
+
+      {/* Mobile: info panel shown when tab is 'info' */}
+      <div className={`sab-mobile-info ${mobileTab === 'info' ? 'visible' : ''}`}>
+        <SaboteurPlayers />
+        <SaboteurActions />
       </div>
 
       <SaboteurHand />

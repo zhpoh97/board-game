@@ -1191,3 +1191,222 @@ body {
 .sab-path-svg {
   display: block;
 }
+
+/* Mobile turn bar — hidden on desktop */
+.sab-mobile-turn-bar {
+  display: none;
+}
+
+/* Mobile tabs — hidden on desktop */
+.sab-mobile-tabs {
+  display: none;
+}
+
+/* Mobile info panel — hidden on desktop */
+.sab-mobile-info {
+  display: none;
+}
+
+/* ═══ Mobile Responsive ═══ */
+@media (max-width: 768px) {
+  /* Status bar: compact */
+  .sab-status-bar {
+    padding: 6px 10px;
+    min-height: 40px;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .sab-status-bar .status-left {
+    gap: 4px;
+    font-size: 12px;
+  }
+  .sab-status-bar .status-left .room-code {
+    font-size: 11px;
+  }
+  .sab-status-bar .status-center {
+    order: 3;
+    width: 100%;
+    text-align: center;
+    display: none; /* role shown in turn bar instead */
+  }
+  .sab-status-bar .status-right {
+    gap: 4px;
+  }
+  .sab-status-bar .status-right .btn-small {
+    padding: 3px 6px;
+    font-size: 11px;
+  }
+
+  /* Mobile turn indicator */
+  .sab-mobile-turn-bar {
+    display: block;
+    text-align: center;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    background: rgba(22, 33, 62, 0.8);
+    border-bottom: 1px solid var(--border);
+    color: var(--warning);
+  }
+
+  /* Mobile tab switcher */
+  .sab-mobile-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-card);
+  }
+  .sab-mobile-tab {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .sab-mobile-tab.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+  }
+
+  /* Hide desktop left panel on mobile */
+  .sab-left-panel {
+    display: none;
+  }
+
+  /* Main area is just the board on mobile */
+  .sab-main {
+    flex: 1;
+    overflow: hidden;
+  }
+  .sab-board-area {
+    flex: 1;
+    overflow: auto;
+    padding: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Mobile info panel */
+  .sab-mobile-info {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  /* When info tab active: hide board, show info */
+  .sab-show-info .sab-main {
+    display: none;
+  }
+  .sab-show-info .sab-mobile-info {
+    display: flex;
+  }
+
+  /* Board container on mobile */
+  .sab-board-container {
+    padding: 4px;
+  }
+  .sab-board {
+    padding: 4px;
+    gap: 1px;
+  }
+
+  /* Players compact horizontal on mobile */
+  .sab-mobile-info .sab-players {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .sab-mobile-info .sab-player-slot {
+    flex: 1 1 calc(50% - 6px);
+    min-width: 130px;
+    padding: 6px 8px;
+  }
+  .sab-mobile-info .sab-player-name {
+    font-size: 12px;
+  }
+  .sab-mobile-info .sab-player-info {
+    font-size: 10px;
+  }
+
+  /* Hand: smaller cards on mobile */
+  .sab-hand {
+    padding: 6px 10px 8px;
+  }
+  .sab-hand-cards {
+    gap: 6px;
+    justify-content: flex-start;
+  }
+  .sab-card {
+    width: 62px;
+    height: 74px;
+  }
+  .sab-card-icon {
+    font-size: 18px;
+  }
+
+  /* Goal text smaller on mobile */
+  .sab-goal {
+    font-size: 20px;
+  }
+  .sab-valid-marker {
+    font-size: 16px;
+  }
+}
+
+/* General mobile — shared game status bar */
+@media (max-width: 768px) {
+  .game-status {
+    padding: 6px 10px;
+    min-height: 38px;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .status-left {
+    gap: 4px;
+  }
+  .status-center {
+    font-size: 12px;
+  }
+  .game-main {
+    padding: 8px;
+    gap: 8px;
+  }
+  .table-view {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 6px;
+  }
+  .home-card {
+    padding: 24px 20px;
+    margin: 0 10px;
+  }
+  .home-card h1 {
+    font-size: 22px;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .sab-status-bar .status-left .variant-badge {
+    display: none;
+  }
+  .sab-card {
+    width: 56px;
+    height: 66px;
+  }
+  .sab-card-icon {
+    font-size: 16px;
+  }
+  .sab-card-label {
+    font-size: 8px;
+  }
+  .sab-hand-cards {
+    gap: 4px;
+  }
+}
