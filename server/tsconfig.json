@@ -2,10 +2,7 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src",
-    "paths": {
-      "@cockroach-poker/shared": ["../shared/src"]
-    }
+    "rootDir": "./src"
   },
   "include": ["src"],
   "references": [{ "path": "../shared" }]
