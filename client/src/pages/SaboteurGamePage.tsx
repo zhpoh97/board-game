@@ -93,8 +93,9 @@ export default function SaboteurGamePage() {
             {t('status.quit')}
           </button>
         </div>
-        {showRules && <SaboteurRulesModal onClose={() => setShowRules(false)} />}
       </div>
+
+      {showRules && <SaboteurRulesModal onClose={() => setShowRules(false)} />}
 
       {/* Mobile turn indicator */}
       <div className="sab-mobile-turn-bar">

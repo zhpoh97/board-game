@@ -1,9 +1,17 @@
+import { useState } from 'react';
 import { SaboteurCard, SaboteurCardKind, Tool, Direction } from '@cockroach-poker/shared';
 
 const TOOL_EMOJI: Record<Tool, string> = {
   [Tool.PICKAXE]: '\u26CF\uFE0F',
   [Tool.LANTERN]: '\u{1F4A1}',
   [Tool.CART]: '\u{1F6D2}',
+};
+
+const CARD_INFO: Record<string, string> = {
+  [SaboteurCardKind.BREAK]: 'Break a player\'s tool. They can\'t place path cards while any tool is broken.',
+  [SaboteurCardKind.REPAIR]: 'Fix a player\'s broken tool so they can place path cards again.',
+  [SaboteurCardKind.ROCKFALL]: 'Destroy a path card on the board (except the start card).',
+  [SaboteurCardKind.MAP]: 'Secretly peek at one goal card to see if it has gold or stone.',
 };
 
 interface SabCardProps {
@@ -37,6 +45,7 @@ export default function SaboteurCardComponent({ card, selected, onClick, small }
       <div className={`${sizeClass} sab-card-action sab-card-break ${selected ? 'sab-card-selected' : ''}`} onClick={onClick}>
         <span className="sab-card-icon">{TOOL_EMOJI[card.tool]}</span>
         <span className="sab-card-label">Break</span>
+        {!small && <CardInfo kind={card.kind} />}
       </div>
     );
   }
@@ -46,6 +55,7 @@ export default function SaboteurCardComponent({ card, selected, onClick, small }
       <div className={`${sizeClass} sab-card-action sab-card-repair ${selected ? 'sab-card-selected' : ''}`} onClick={onClick}>
         <span className="sab-card-icon">{card.tools.map(t => TOOL_EMOJI[t]).join('')}</span>
         <span className="sab-card-label">Repair</span>
+        {!small && <CardInfo kind={card.kind} />}
       </div>
     );
   }
@@ -55,6 +65,7 @@ export default function SaboteurCardComponent({ card, selected, onClick, small }
       <div className={`${sizeClass} sab-card-action sab-card-rockfall ${selected ? 'sab-card-selected' : ''}`} onClick={onClick}>
         <span className="sab-card-icon">{'\u{1FAA8}'}</span>
         <span className="sab-card-label">Rockfall</span>
+        {!small && <CardInfo kind={card.kind} />}
       </div>
     );
   }
@@ -64,11 +75,35 @@ export default function SaboteurCardComponent({ card, selected, onClick, small }
       <div className={`${sizeClass} sab-card-action sab-card-map ${selected ? 'sab-card-selected' : ''}`} onClick={onClick}>
         <span className="sab-card-icon">{'\u{1F5FA}\uFE0F'}</span>
         <span className="sab-card-label">Map</span>
+        {!small && <CardInfo kind={card.kind} />}
       </div>
     );
   }
 
   return null;
+}
+
+function CardInfo({ kind }: { kind: string }) {
+  const [show, setShow] = useState(false);
+  const info = CARD_INFO[kind];
+  if (!info) return null;
+
+  return (
+    <span
+      className="sab-card-info-icon"
+      onMouseEnter={() => setShow(true)}
+      onMouseLeave={() => setShow(false)}
+      onClick={(e) => {
+        e.stopPropagation();
+        setShow(!show);
+      }}
+    >
+      i
+      {show && (
+        <span className="sab-card-tooltip">{info}</span>
+      )}
+    </span>
+  );
 }
 
 /** Renders a mini SVG preview of the tunnel paths on a card */
