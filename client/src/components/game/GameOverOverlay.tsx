@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useGameStore } from '../../store/useGameStore';
 import { getSocket } from '../../socket';
 import { ClientEvent } from '@cockroach-poker/shared';
@@ -5,6 +6,7 @@ import { useI18n } from '../../i18n/useI18n';
 
 export default function GameOverOverlay() {
   const { t } = useI18n();
+  const navigate = useNavigate();
   const state = useGameStore((s) => s.state);
   if (!state) return null;
 
@@ -21,6 +23,7 @@ export default function GameOverOverlay() {
     localStorage.removeItem('cp_sessionId');
     localStorage.removeItem('cp_roomCode');
     useGameStore.getState().clearState();
+    navigate('/', { replace: true });
   };
 
   return (

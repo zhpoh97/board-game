@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useGameStore } from '../store/useGameStore';
 import { getSocket } from '../socket';
 import {
@@ -15,6 +16,7 @@ import SaboteurRulesModal from '../components/saboteur/SaboteurRulesModal';
 
 export default function SaboteurGamePage() {
   const { t, lang, setLang } = useI18n();
+  const navigate = useNavigate();
   const [showRules, setShowRules] = useState(false);
   const [mobileTab, setMobileTab] = useState<'board' | 'info'>('board');
   const sabState = useGameStore((s) => s.sabState);
@@ -62,6 +64,7 @@ export default function SaboteurGamePage() {
       localStorage.removeItem('cp_sessionId');
       localStorage.removeItem('cp_roomCode');
       useGameStore.getState().clearState();
+      navigate('/', { replace: true });
     }
   };
 

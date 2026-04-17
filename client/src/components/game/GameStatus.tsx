@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useGameStore } from '../../store/useGameStore';
 import { getSocket } from '../../socket';
 import { GamePhase, ClientEvent } from '@cockroach-poker/shared';
@@ -7,6 +8,7 @@ import RulesModal from './RulesModal';
 
 export default function GameStatus() {
   const [showRules, setShowRules] = useState(false);
+  const navigate = useNavigate();
   const { t, lang, setLang } = useI18n();
   const state = useGameStore((s) => s.state);
   if (!state) return null;
@@ -72,6 +74,7 @@ export default function GameStatus() {
             localStorage.removeItem('cp_sessionId');
             localStorage.removeItem('cp_roomCode');
             useGameStore.getState().clearState();
+            navigate('/', { replace: true });
           }
         }}>
           {t('status.quit')}
