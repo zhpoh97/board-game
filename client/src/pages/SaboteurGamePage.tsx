@@ -3,7 +3,7 @@ import { useGameStore } from '../store/useGameStore';
 import { getSocket } from '../socket';
 import {
   ClientEvent, SaboteurPhase, SaboteurCardKind, SaboteurPathCard,
-  START_POSITION, Direction, OPPOSITE_DIRECTION, DIRECTION_OFFSET, ALL_DIRECTIONS,
+  START_POSITION, GOAL_POSITIONS, Direction, OPPOSITE_DIRECTION, DIRECTION_OFFSET, ALL_DIRECTIONS,
   PATH_TEMPLATES,
 } from '@cockroach-poker/shared';
 import { useI18n } from '../i18n/useI18n';
@@ -154,7 +154,7 @@ function computeValidPlacements(
   const boardMap = new Map<string, typeof board[0]>();
   for (const cell of board) boardMap.set(`${cell.x},${cell.y}`, cell);
 
-  const goalPositions = new Set(['8,-1', '8,0', '8,1']);
+  const goalPositions = new Set(GOAL_POSITIONS.map(g => `${g.x},${g.y}`));
   const checked = new Set<string>();
   const positions: { x: number; y: number }[] = [];
 

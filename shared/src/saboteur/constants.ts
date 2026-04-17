@@ -87,9 +87,9 @@ export const HAND_SIZE: Record<number, number> = {
 // ─── Board Layout ───
 export const START_POSITION = { x: 0, y: 0 };
 export const GOAL_POSITIONS = [
-  { x: 8, y: -1 },
+  { x: 8, y: -2 },
   { x: 8, y: 0 },
-  { x: 8, y: 1 },
+  { x: 8, y: 2 },
 ];
 
 // Start card: crossroads, always placed

@@ -1,5 +1,5 @@
 import { BoardCell, GoalCardPublic, Direction, START_POSITION, GOAL_POSITIONS } from '@cockroach-poker/shared';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useRef, useCallback } from 'react';
 
 interface SaboteurBoardProps {
   board: BoardCell[];
@@ -9,6 +9,7 @@ interface SaboteurBoardProps {
 }
 
 export default function SaboteurBoardView({ board, goals, onCellClick, validPlacements }: SaboteurBoardProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
   // Compute grid bounds
   const bounds = useMemo(() => {
     let minX = -1, maxX = 9, minY = -2, maxY = 2;
@@ -27,7 +28,23 @@ export default function SaboteurBoardView({ board, goals, onCellClick, validPlac
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
-  const cellSize = isMobile ? 52 : 72;
+  const cellSize = isMobile ? 48 : 72;
+
+  // Auto-scroll to start position on mount
+  const hasScrolled = useRef(false);
+  useEffect(() => {
+    if (hasScrolled.current || !scrollRef.current) return;
+    hasScrolled.current = true;
+    const container = scrollRef.current;
+    // Start is at column (START_POSITION.x - bounds.minX) and row (START_POSITION.y - bounds.minY)
+    const startCol = START_POSITION.x - bounds.minX;
+    const startRow = START_POSITION.y - bounds.minY;
+    const gap = isMobile ? 1 : 2;
+    const padding = isMobile ? 4 : 6;
+    const scrollX = startCol * (cellSize + gap) + padding - container.clientWidth / 2 + cellSize / 2;
+    const scrollY = startRow * (cellSize + gap) + padding - container.clientHeight / 2 + cellSize / 2;
+    container.scrollTo(scrollX, scrollY);
+  }, [bounds, cellSize, isMobile]);
   const boardMap = useMemo(() => {
     const m = new Map<string, BoardCell>();
     for (const cell of board) m.set(`${cell.x},${cell.y}`, cell);
@@ -79,8 +96,10 @@ export default function SaboteurBoardView({ board, goals, onCellClick, validPlac
   }
 
   return (
-    <div className="sab-board-container">
-      <div className="sab-board">{rows}</div>
+    <div className="sab-board-scroll" ref={scrollRef}>
+      <div className="sab-board-container">
+        <div className="sab-board">{rows}</div>
+      </div>
     </div>
   );
 }

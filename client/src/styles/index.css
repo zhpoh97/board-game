@@ -929,17 +929,22 @@ body {
 
 .sab-board-area {
   flex: 1;
-  overflow: auto;
-  padding: 20px;
+  overflow: hidden;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
 }
 
 /* Board */
+.sab-board-scroll {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .sab-board-container {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
+  min-width: 100%;
+  min-height: 100%;
   padding: 12px;
 }
 .sab-board {
@@ -1353,9 +1358,7 @@ body {
   }
   .sab-board-area {
     flex: 1;
-    overflow: auto;
-    padding: 8px;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
   }
 
   /* Mobile info panel */
@@ -1378,7 +1381,9 @@ body {
 
   /* Board container on mobile */
   .sab-board-container {
-    padding: 4px;
+    padding: 8px;
+    min-width: unset;
+    min-height: unset;
   }
   .sab-board {
     padding: 4px;
