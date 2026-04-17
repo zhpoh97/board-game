@@ -901,13 +901,30 @@ body {
   color: var(--text-muted);
   margin-left: 8px;
 }
-.sab-role {
+
+/* Role banner */
+.sab-role-banner {
+  text-align: center;
+  padding: 8px 16px;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: 0.3px;
+  border-bottom: 1px solid var(--border);
 }
-.sab-role-miner { color: var(--info); text-shadow: 0 0 12px rgba(52,152,219,0.3); }
-.sab-role-saboteur { color: var(--danger); text-shadow: 0 0 12px rgba(231,76,60,0.3); }
+.sab-role-banner-miner {
+  background: linear-gradient(90deg, rgba(52,152,219,0.15) 0%, rgba(52,152,219,0.05) 100%);
+  color: #5bb8f5;
+  border-bottom-color: rgba(52,152,219,0.3);
+}
+.sab-role-banner-saboteur {
+  background: linear-gradient(90deg, rgba(231,76,60,0.15) 0%, rgba(231,76,60,0.05) 100%);
+  color: #f07060;
+  border-bottom-color: rgba(231,76,60,0.3);
+}
+.sab-role-banner-observer {
+  background: rgba(255,255,255,0.04);
+  color: var(--text-muted);
+}
 
 .sab-main {
   flex: 1;
@@ -1277,18 +1294,18 @@ body {
   .sab-status-bar .status-left .room-code {
     font-size: 11px;
   }
-  .sab-status-bar .status-center {
-    order: 3;
-    width: 100%;
-    text-align: center;
-    display: none; /* role shown in turn bar instead */
-  }
   .sab-status-bar .status-right {
     gap: 4px;
   }
   .sab-status-bar .status-right .btn-small {
     padding: 3px 6px;
     font-size: 11px;
+  }
+
+  /* Mobile role banner */
+  .sab-role-banner {
+    padding: 6px 12px;
+    font-size: 12px;
   }
 
   /* Mobile turn indicator */

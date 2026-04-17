@@ -75,13 +75,6 @@ export default function SaboteurGamePage() {
           <span className="variant-badge">Saboteur</span>
           <span className="sab-round">R{sabState.round}/{sabState.totalRounds}</span>
         </div>
-        <div className="status-center">
-          {sabState.myRole !== 'observer' && (
-            <span className={`sab-role sab-role-${sabState.myRole}`}>
-              {sabState.myRole === 'miner' ? 'Miner \u26CF\uFE0F' : 'Saboteur \u{1F608}'}
-            </span>
-          )}
-        </div>
         <div className="status-right">
           <button className="btn btn-small btn-secondary" onClick={() => setShowRules(true)}>
             {t('status.rules')}
@@ -94,6 +87,20 @@ export default function SaboteurGamePage() {
           </button>
         </div>
       </div>
+
+      {/* Role banner — always visible */}
+      {sabState.myRole !== 'observer' && (
+        <div className={`sab-role-banner sab-role-banner-${sabState.myRole}`}>
+          {sabState.myRole === 'miner'
+            ? '\u26CF\uFE0F You are a Miner — dig tunnels to the gold!'
+            : '\u{1F608} You are a Saboteur — block the miners!'}
+        </div>
+      )}
+      {sabState.myRole === 'observer' && (
+        <div className="sab-role-banner sab-role-banner-observer">
+          You are observing this game
+        </div>
+      )}
 
       {showRules && <SaboteurRulesModal onClose={() => setShowRules(false)} />}
 
