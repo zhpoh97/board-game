@@ -2,6 +2,7 @@ import { useGameStore } from '../../store/useGameStore';
 import { getSocket } from '../../socket';
 import { ClientEvent } from '@cockroach-poker/shared';
 import { useI18n } from '../../i18n/useI18n';
+import CardComponent from '../shared/Card';
 
 export default function ResponsePanel() {
   const { t } = useI18n();
@@ -21,10 +22,17 @@ export default function ResponsePanel() {
     getSocket().emit(ClientEvent.GAME_PEEK_AND_PASS);
   };
 
+  // Dummy card for face-down display
+  const dummyCard = { id: '', critter: currentChain.claimedType, isRoyal: false };
+
   return (
     <div className="response-panel">
       <div className="claim-display">
         {t('response.claim', { name: fromName, critter: critterName })}
+      </div>
+
+      <div className="response-card-reveal">
+        <CardComponent card={dummyCard} faceUp={false} size="large" />
       </div>
 
       <div className="response-buttons">

@@ -462,10 +462,22 @@ body {
 }
 .claim-display {
   font-size: 18px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   padding: 12px;
   background: var(--bg);
   border-radius: var(--radius);
+}
+.response-card-reveal {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.response-card-reveal .card {
+  animation: cardSlideIn 0.4s ease-out;
+}
+@keyframes cardSlideIn {
+  from { transform: translateY(-30px) rotate(-5deg); opacity: 0; }
+  to { transform: translateY(0) rotate(0); opacity: 1; }
 }
 .response-buttons {
   display: flex;
