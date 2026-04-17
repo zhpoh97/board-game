@@ -1220,61 +1220,30 @@ body {
   display: block;
 }
 
-/* Card info icon + tooltip */
-.sab-card-info-icon {
-  position: absolute;
-  top: 3px;
-  right: 3px;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.12);
-  color: var(--text-muted);
-  font-size: 9px;
-  font-weight: 700;
-  font-style: italic;
+/* Hand info banner */
+.sab-hand-banner {
   display: flex;
   align-items: center;
-  justify-content: center;
-  cursor: help;
-  z-index: 2;
-  line-height: 1;
+  gap: 10px;
+  padding: 8px 16px;
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, rgba(233,69,96,0.12) 0%, rgba(52,152,219,0.12) 100%);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  animation: bannerSlideIn 0.25s ease-out;
 }
-.sab-card-info-icon:hover {
-  background: rgba(255,255,255,0.25);
+@keyframes bannerSlideIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.sab-hand-banner-emoji {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.sab-hand-banner-text {
+  font-size: 13px;
   color: var(--text);
-}
-.sab-card-action {
-  position: relative;
-}
-.sab-card-tooltip {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 8px 10px;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  color: var(--text);
-  width: 200px;
-  text-align: left;
   line-height: 1.4;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-  z-index: 100;
-  pointer-events: none;
-}
-.sab-card-tooltip::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-top-color: var(--border);
 }
 
 /* Mobile turn bar — hidden on desktop */
